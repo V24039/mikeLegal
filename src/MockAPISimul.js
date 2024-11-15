@@ -3,7 +3,7 @@ const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 // function to fetch user data
 export const getUserDetails = async (name = "", email = "", currentId = 0) => {
   // to test error handling
-  const path = "../data.json";
+  const path = "/database.json";
   let filterdUser;
   let totalCount;
 
