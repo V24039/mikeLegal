@@ -1,0 +1,27 @@
+.search_bar{
+  display: flex;
+  place-items: center;
+  padding-inline: 50px;
+  gap: 25px;
+}
+
+input {
+  margin-left: 10px;
+  height: 30px;
+  aspect-ratio: 4/1;
+}
+
+input::placeholder {
+  color: rgb(236, 231, 223);
+}
+
+@media (max-width: 700px) {
+  .search_bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input{
+    width: 70% !important;
+  }
+}

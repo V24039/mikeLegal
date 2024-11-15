@@ -16,8 +16,8 @@ export const getUserDetails = async (name = "", email = "", currentId = 0) => {
     userDetails?.filter((value) => {
       // filter for name email query
       let queryCheck =
-        (name ? value?.name?.match(name) : true) &&
-        (email ? value?.email?.match(email) : true);
+        (name ? value?.name?.toLowerCase()?.match(name) : true) &&
+        (email ? value?.email?.toLowerCase()?.match(email) : true);
 
       return queryCheck;
     }).slice(currentId, currentId+10) // slice the user details array to 10 values

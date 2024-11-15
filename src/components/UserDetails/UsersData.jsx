@@ -1,23 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import UserDetails from "./UserDetails";
 import { getUserDetails } from "../../MockAPISimul";
 
 import "./UserDetails.css";
+import { AppContext } from "../../App";
+import { useDebounce } from "../hooks/useDebounce";
 
 const UserData = () => {
-  const [userDetails, setUserDetails] = useState([]);
-  const [currentId, setCurrentId] = useState(0);// To store the current number user details displayed
+  const { email, name } = useContext(AppContext);
+  const debouncedName = useDebounce(name, 500);
+  const debouncedEmail = useDebounce(email, 500);
+
+  const [userDetails, setUserDetails] = useState([]); 
+  const [currentId, setCurrentId] = useState(0); // To store the current number user details displayed
 
   useEffect(() => {
     fetchUserDetails();
-  }, [currentId]);
+  }, [currentId, debouncedEmail, debouncedName]);
 
-  const fetchUserDetails = async (name = "", email = "") => {
-    const response = await getUserDetails(name, email, currentId);
+  const fetchUserDetails = async () => {
+    const response = await getUserDetails(debouncedName, debouncedEmail, currentId);
 
     // checking if query provided and resetting the userDetails
-    if (name || email) {
+    if (debouncedEmail || debouncedName) {
       setUserDetails(response);
     } else {
       setUserDetails((prev) => [...prev, ...response]);
