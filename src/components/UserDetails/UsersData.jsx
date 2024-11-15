@@ -23,7 +23,7 @@ const UserData = () => {
 
   const fetchUserDetails = async () => {
     setLoading(true);
-    setError(false);
+    setError("");
     try {
       const response = await getUserDetails(
         debouncedName,
@@ -37,8 +37,8 @@ const UserData = () => {
       } else {
         setUserDetails((prev) => [...prev, ...response]);
       }
-    } catch {
-      setError(true);
+    } catch (err) {
+      setError(err);
     }
     setLoading(false);
   };
@@ -48,7 +48,7 @@ const UserData = () => {
   }
 
   if (error) {
-    return <div className="error">Error fetching user details</div>;
+    return <div className="error">Error</div>;
   }
 
   return (

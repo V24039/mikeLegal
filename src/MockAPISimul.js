@@ -1,9 +1,17 @@
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 // function to fetch user data
-export const getUserDetails = async (name = "", email = "", currentId = 0) => {
+export const getUserDetails = async (
+  name = "",
+  email = "",
+  currentId = 0
+) => {
+
+  // to test error handling
+  const path = "../data.json";
+
   // fetch the data from data.json file present in the folder
-  let userDetails = await fetch("../data.json")
+  let userDetails = await fetch(path)
     .then((res) => res.json())
     .catch(() => {
       throw new Error("Cannot fetch the detils");
