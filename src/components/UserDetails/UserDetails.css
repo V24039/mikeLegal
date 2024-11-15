@@ -1,0 +1,19 @@
+.user-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 3rem;
+  row-gap: 3rem;
+}
+
+.user-data {
+  padding-left: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(3, 102, 214, 0.3) 6px 2px 16px 0px, rgba(87, 150, 222, 0.3) -6px -2px 16px 0px;
+}
+
+button {
+  padding: 10px;
+  font-size: 17px;
+  background-color: lightgoldenrodyellow;
+  color: black;
+}

@@ -1,0 +1,11 @@
+#root {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  gap: 50px;
+}
