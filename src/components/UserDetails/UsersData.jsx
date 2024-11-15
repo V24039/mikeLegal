@@ -12,8 +12,9 @@ const UserData = () => {
   const debouncedName = useDebounce(name, 500);
   const debouncedEmail = useDebounce(email, 500);
 
-  const [userDetails, setUserDetails] = useState([]); 
-  const [loading, setLoading] = useState([]); 
+  const [userDetails, setUserDetails] = useState([]);
+  const [loading, setLoading] = useState([]);
+  const [error, setError] = useState([]);
   const [currentId, setCurrentId] = useState(0); // To store the current number user details displayed
 
   useEffect(() => {
@@ -21,20 +22,33 @@ const UserData = () => {
   }, [currentId, debouncedEmail, debouncedName]);
 
   const fetchUserDetails = async () => {
-    setLoading(true)
-    const response = await getUserDetails(debouncedName, debouncedEmail, currentId);
+    setLoading(true);
+    setError(false);
+    try {
+      const response = await getUserDetails(
+        debouncedName,
+        debouncedEmail,
+        currentId
+      );
 
-    // checking if query provided and resetting the userDetails
-    if (debouncedEmail || debouncedName) {
-      setUserDetails(response);
-    } else {
-      setUserDetails((prev) => [...prev, ...response]);
+      // checking if query provided and resetting the userDetails
+      if (debouncedEmail || debouncedName) {
+        setUserDetails(response);
+      } else {
+        setUserDetails((prev) => [...prev, ...response]);
+      }
+    } catch {
+      setError(true);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
-  if(loading) {
-    return <div className="loader"/>
+  if (loading) {
+    return <div className="loader" />;
+  }
+
+  if (error) {
+    return <div className="error">Error fetching user details</div>;
   }
 
   return (
@@ -50,7 +64,10 @@ const UserData = () => {
           />
         ))}
       </div>
-      <button onClick={() => setCurrentId((prev) => prev + 10)} disabled={loading}>
+      <button
+        onClick={() => setCurrentId((prev) => prev + 10)}
+        disabled={loading}
+      >
         Load More
       </button>
     </>
