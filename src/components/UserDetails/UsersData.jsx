@@ -13,6 +13,7 @@ const UserData = () => {
   const debouncedEmail = useDebounce(email, 500);
 
   const [userDetails, setUserDetails] = useState([]); 
+  const [loading, setLoading] = useState([]); 
   const [currentId, setCurrentId] = useState(0); // To store the current number user details displayed
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const UserData = () => {
   }, [currentId, debouncedEmail, debouncedName]);
 
   const fetchUserDetails = async () => {
+    setLoading(true)
     const response = await getUserDetails(debouncedName, debouncedEmail, currentId);
 
     // checking if query provided and resetting the userDetails
@@ -28,7 +30,12 @@ const UserData = () => {
     } else {
       setUserDetails((prev) => [...prev, ...response]);
     }
+    setLoading(false)
   };
+
+  if(loading) {
+    return <div className="loader"/>
+  }
 
   return (
     <>
@@ -43,7 +50,7 @@ const UserData = () => {
           />
         ))}
       </div>
-      <button onClick={() => setCurrentId((prev) => prev + 10)}>
+      <button onClick={() => setCurrentId((prev) => prev + 10)} disabled={loading}>
         Load More
       </button>
     </>

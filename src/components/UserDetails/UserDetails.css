@@ -8,7 +8,8 @@
 .user-data {
   padding-left: 10px;
   border-radius: 10px;
-  box-shadow: rgba(3, 102, 214, 0.3) 6px 2px 16px 0px, rgba(87, 150, 222, 0.3) -6px -2px 16px 0px;
+  box-shadow: rgba(3, 102, 214, 0.3) 6px 2px 16px 0px,
+    rgba(87, 150, 222, 0.3) -6px -2px 16px 0px;
 }
 
 button {
@@ -16,4 +17,22 @@ button {
   font-size: 17px;
   background-color: lightgoldenrodyellow;
   color: black;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border: 5px solid;
+  border-radius: 50%;
+  --grad: conic-gradient(#0000 5%,#000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--grad);
+          mask: var(--grad);
+  animation: spinner 1s infinite linear;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(1turn)
+  }
 }
